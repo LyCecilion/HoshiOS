@@ -8,6 +8,9 @@ OBJDUMP := llvm-objdump
 NM := llvm-nm
 QEMU := qemu-system-i386
 CLANG_FORMAT := clang-format
+CLANG_TIDY := clang-tidy
+BEAR := bear
+NIXFMT := nixfmt
 
 KERNEL_LOAD_ADDR := 0x1000
 KERNEL_SECTORS := 32
@@ -30,6 +33,11 @@ CFLAGS := \
 	-Wsign-conversion \
 	-Wmissing-prototypes \
 	-Wstrict-prototypes \
+	-Wimplicit-fallthrough \
+	-Werror=implicit-function-declaration \
+	-Werror=return-type \
+	-Werror=int-conversion \
+	-Werror=incompatible-pointer-types \
 	-I.
 
 ASFLAGS_KERNEL := -f elf32
@@ -66,7 +74,9 @@ FORMAT_FILES := $(C_SOURCES) \
 	arch/i386/halt.h \
 	lib/string.h
 
-.PHONY: all run debug clean format disasm symbols check-kernel-size
+NIX_FILES := flake.nix
+
+.PHONY: all run debug clean format format-nix disasm symbols check-kernel-size compdb tidy lint
 
 all: $(IMAGE)
 
@@ -120,8 +130,21 @@ symbols: $(KERNEL_ELF)
 	$(NM) -n $< > $(SYMBOLS)
 	@echo "wrote $(SYMBOLS)"
 
-format:
+format: format-nix
 	$(CLANG_FORMAT) -i $(FORMAT_FILES)
+
+format-nix:
+	$(NIXFMT) $(NIX_FILES)
+
+compdb: clean
+	$(BEAR) -- make all
+
+tidy: $(C_OBJECTS)
+	$(CLANG_TIDY) -p $(BUILD_DIR) $(C_SOURCES) -- $(CFLAGS)
+
+lint: tidy
+	$(NIXFMT) --check $(NIX_FILES)
+	@echo "lint complete"
 
 clean:
 	rm -rf $(BUILD_DIR)

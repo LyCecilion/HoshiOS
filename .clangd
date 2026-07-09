@@ -1,0 +1,52 @@
+CompileFlags:
+  Add:
+    - --target=i386-elf
+    - -std=c11
+    - -ffreestanding
+    - -fno-builtin
+    - -fno-stack-protector
+    - -fno-pic
+    - -m32
+    - -Wall
+    - -Wextra
+    - -Wpedantic
+    - -IHoshiOS/.
+
+Diagnostics:
+  Suppress:
+    # clangd doesn't understand some freestanding patterns
+    - unused-value
+  ClangTidy:
+    Add:
+      - bugprone-*
+      - -bugprone-easily-swappable-parameters
+      - -bugprone-narrowing-conversions
+      - -bugprone-reserved-identifier
+      - -bugprone-unused-return-value
+      - readability-*
+      - -readability-magic-numbers
+      - -readability-function-cognitive-complexity
+      - -readability-identifier-length
+      - -readability-identifier-naming
+      - -readability-avoid-const-params-in-decls
+      - misc-*
+      - -misc-include-cleaner
+      - -misc-const-correctness
+      - performance-*
+      - -performance-no-int-to-ptr
+      - -clang-analyzer-core.FixedAddressDereference
+    CheckOptions:
+      readability-function-size.LineThreshold: 80
+      readability-function-size.StatementThreshold: 120
+      readability-function-size.BranchThreshold: 30
+
+Index:
+  Background: Build
+
+InlayHints:
+  BlockEnd: false
+  Designators: true
+  Enabled: false
+  ParameterNames: true
+  DeducedTypes: true
+  TypeNameLimit: 24

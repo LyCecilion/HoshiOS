@@ -1,11 +1,12 @@
 {
-  description = "HoshiOS x86 toy operating system development shell";
+  description = "HoshiOS development shell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
       systems = [
         "x86_64-linux"
@@ -14,7 +15,8 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      devShells = forAllSystems (system:
+      devShells = forAllSystems (
+        system:
         let
           pkgs = import nixpkgs { inherit system; };
           llvm = pkgs.llvmPackages;
@@ -31,8 +33,11 @@
               llvm.clang-tools
               pkgs.gnumake
               pkgs.coreutils
+              pkgs.bear
+              pkgs.nixfmt
             ];
           };
-        });
+        }
+      );
     };
 }
