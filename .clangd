@@ -19,22 +19,21 @@ Diagnostics:
   ClangTidy:
     Add:
       - bugprone-*
-      - -bugprone-easily-swappable-parameters
-      - -bugprone-narrowing-conversions
-      - -bugprone-reserved-identifier
-      - -bugprone-unused-return-value
       - readability-*
-      - -readability-magic-numbers
-      - -readability-function-cognitive-complexity
-      - -readability-identifier-length
-      - -readability-identifier-naming
-      - -readability-avoid-const-params-in-decls
       - misc-*
-      - -misc-include-cleaner
-      - -misc-const-correctness
       - performance-*
-      - -performance-no-int-to-ptr
-      - -clang-analyzer-core.FixedAddressDereference
+    Remove:
+      - bugprone-easily-swappable-parameters
+      - bugprone-narrowing-conversions
+      - bugprone-reserved-identifier
+      - bugprone-unused-return-value
+      - readability-magic-numbers
+      - readability-function-cognitive-complexity
+      - readability-identifier-length
+      - readability-identifier-naming
+      - readability-avoid-const-params-in-decls
+      - misc-include-cleaner
+      - performance-no-int-to-ptr
     CheckOptions:
       readability-function-size.LineThreshold: 80
       readability-function-size.StatementThreshold: 120
