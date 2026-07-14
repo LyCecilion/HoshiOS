@@ -7,6 +7,7 @@
 void panic(const char *message)
 {
     vga_writeln("");
+    vga_set_color(0x0C, 0x00);
     vga_write("PANIC: ");
     vga_writeln(message);
 
