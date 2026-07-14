@@ -74,7 +74,7 @@ FORMAT_FILES := $(C_SOURCES) \
 	arch/i386/halt.h \
 	lib/string.h
 
-NIX_FILES := flake.nix
+NIX_FILES := ../flake.nix
 
 .PHONY: all run debug clean format format-nix disasm symbols check-kernel-size compdb tidy lint
 
