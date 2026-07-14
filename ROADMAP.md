@@ -33,12 +33,12 @@ v4.x  Real Machine Starsea   真实机器星海：驱动、多核、网络、图
 
 #### 要做
 
-- [ ] serial driver
-- [ ] `klog()` / `log_info()`
-- [ ] `panic()` / `assert()`
-- [ ] GDB debug target
-- [ ] objdump / readelf / nm 辅助命令
-- [ ] 基础 `kstrlen` / `kmemcpy` / `kmemset`
+- [x] serial driver
+- [x] `klog()` / `log_info()`
+- [x] `panic()` / `assert()`
+- [x] GDB debug target
+- [x] objdump / readelf / nm 辅助命令
+- [x] 基础 `kstrlen` / `kmemcpy` / `kmemset`
 
 #### 完成效果
 
