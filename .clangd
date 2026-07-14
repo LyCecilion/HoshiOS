@@ -16,6 +16,7 @@ Diagnostics:
   Suppress:
     # clangd doesn't understand some freestanding patterns
     - unused-value
+    - unused-includes
   ClangTidy:
     Add:
       - bugprone-*
